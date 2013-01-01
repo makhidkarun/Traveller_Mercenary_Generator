@@ -5,10 +5,20 @@
 	version 0.1
 */
 
-$troop_count = array (
-	'troops_per_squad' => 8,
-	'squads_per_platoon' => 3,
-	'platoons_per_company' => 4);
+if (! isset($troop_counttroops_per_squad)) {
+	$troop_count = array (
+		'troops_per_squad' => 8,
+		'squads_per_platoon' => 3,
+		'platoons_per_company' => 4);
+}
+
+if (! isset($stat_parameters)) {
+	$stat_parameters = array (
+		'min_stat' => 2,
+		'min_physical_stat' => 6,
+		'min_mental_stat' => 5,
+		'max_stat' => 10);
+}
 
 $hq_staff_roles = array (
 	0 => '1st Sgt',
@@ -19,12 +29,6 @@ $hq_staff_roles = array (
 	5 => 'Driver',
 	6 => 'Driver',
 	7 => 'Clerk ');
-
-$stat_parameters = array (
-	'min_stat' => 2,
-	'min_physical_stat' => 6,
-	'min_mental_stat' => 5,
-	'max_stat' => 10);
 
 $unit_id = array(
 	1 => '1st',
@@ -127,7 +131,6 @@ function add_skill($skill_array, $skill) {
 
 function generate_person( $rank_min, $rank_max, $role, $stat_parameters, $names, $rank_structure, $base_skills, $all_skills) {
 	$upp = generate_stats($stat_parameters);
-	$name = get_name($names);
 	$rank = $rank_structure[rand($rank_min, $rank_max)];
 	$age = 18 + rand(0,5) + $rank_min; 
 	if ( rand(1,6) <=5 ) {
@@ -135,6 +138,7 @@ function generate_person( $rank_min, $rank_max, $role, $stat_parameters, $names,
 	} else {
 		$gender = 'Female';
 	}
+	$name = get_name($names);
 	$skill_array = array();
 	$skill_count = rand(1,6) + $rank_max/2;
 	$max_skill_level = 12 + ($rank_max * 2);
@@ -229,12 +233,6 @@ function generate_hq_staff($hq_staff_roles, $stat_parameters, $names, $rank_stru
 function open_web_page($troop_count, $stat_parameters, $_POST) {
 
 	if (array_key_exists('_submit_check', $_POST)) {
-	/*
-		unset($troop_count);
-		unset($stat_parameters);
-		$troop_count = array();
-		$stat_parameters = array();
-	*/
 		if (is_numeric($_POST['entry_troops_per_squad'])) {
 			$troop_count['troops_per_squad'] = $_POST['entry_troops_per_squad'];
 		}
