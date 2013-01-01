@@ -36,7 +36,10 @@ $unit_id = array(
 	3 => '3rd',
 	4 => '4th',
 	5 => '5th',
-	6 => '6th'
+	6 => '6th',
+	7 => '7th',
+	8 => '8th'
+
 );
 
 $rank_structure = array (
@@ -229,7 +232,7 @@ function generate_hq_staff($hq_staff_roles, $stat_parameters, $names, $rank_stru
 	generate_person( 1, 2, 'driver', $stat_parameters, $names, $rank_structure, $base_skills, $all_skills) ;
 	generate_person( 1, 2, 'driver', $stat_parameters, $names, $rank_structure, $base_skills, $all_skills) ;
 }
-
+/*
 function open_web_page($troop_count, $stat_parameters, $_POST) {
 
 	if (array_key_exists('_submit_check', $_POST)) {
@@ -255,6 +258,8 @@ function open_web_page($troop_count, $stat_parameters, $_POST) {
 			$stat_parameters['max_stat'] = $_POST['max_stat'];
 		}
 	}
+
+	$min_stat = $stat_parameters['min_stat'];
 	
 	print<<<_HTML_
 	<html>
@@ -270,7 +275,7 @@ function open_web_page($troop_count, $stat_parameters, $_POST) {
 	<tr><td align="top">
 	<h3>Individual Stat Parameters</h3>
 	<p>Minimum Stat (2-15)
-		<input type="number" min="2" max="15" name="min_stat" value="$stat_parameters[min_stat]" size="5">
+		<input type="number" min="2" max="15" name="min_stat" value="$min_stat" size="5">
 	<p>Minimum Physical Stat (2-15)
 		<input type="number" min="2" max="15" name="min_physical_stat" value="$stat_parameters['min_physical_stat']" size="5">
 	<p>Minimum Mental Stat (2-15)	
@@ -302,6 +307,7 @@ function open_web_page($troop_count, $stat_parameters, $_POST) {
 _HTML_;
 		
 }
+*/
 
 function close_web_page() {
 	echo "</pre></body></html>";

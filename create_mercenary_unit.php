@@ -10,7 +10,7 @@ require_once 'create_mercenary_unit_include.php';
 require_once 'names.php';
 
 $troop_count = array ( 'troops_per_squad' => 8, 'squads_per_platoon' => 3, 'platoons_per_company' => 4);
-$stats = array ('min_stat' => 2,'min_physical_stat' => 6,'min_mental_stat' => 5,'max_stat' => 10);
+$stat_parameters = array ('min_stat' => 2,'min_physical_stat' => 6,'min_mental_stat' => 5,'max_stat' => 10);
 
 if (array_key_exists('_submit_check', $_POST)) {
     foreach($troop_count as $k => $v) {
@@ -18,9 +18,9 @@ if (array_key_exists('_submit_check', $_POST)) {
             $troop_count[$k] = $_POST[$k];
         }
     }
-    foreach($stats as $k) {
+    foreach($stat_parameters as $k => $v) {
         if (isset($_POST[$k]) && is_numeric($_POST[$k])) {
-            $stats[$k] = $_POST[$k];
+            $stat_parameters[$k] = $_POST[$k];
         }
     }
 }
@@ -71,5 +71,5 @@ echo <<< _HTML_
 
 _HTML_;
 
-generate_company($troop_count, $stats);
+generate_company($troop_count, $stat_parameters, $names, $unit_id, $hq_staff_roles, $rank_structure,      $rank_structure, $base_skills, $all_skills);
 ?></pre></body></html>
