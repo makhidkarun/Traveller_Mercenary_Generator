@@ -233,39 +233,29 @@ function generate_hq_staff($hq_staff_roles, $stat_parameters, $names, $rank_stru
 function open_web_page($troop_count, $stat_parameters, $_POST) {
 
 	if (array_key_exists('_submit_check', $_POST)) {
-		if (is_numeric($_POST['entry_troops_per_squad'])) {
-			$troop_count['troops_per_squad'] = $_POST['entry_troops_per_squad'];
+		if (is_numeric($_POST['troops_per_squad'])) {
+			$troop_count['troops_per_squad'] = $_POST['troops_per_squad'];
 		}
-		if (is_numeric($_POST['entry_squads_per_platoon'])) {
-			$troop_count['squads_per_platoon'] = $_POST['entry_squads_per_platoon'];
+		if (is_numeric($_POST['squads_per_platoon'])) {
+			$troop_count['squads_per_platoon'] = $_POST['squads_per_platoon'];
 		}
-		if (is_numeric($_POST['entry_platoons_per_company'])) {
-			$troop_count['platoons_per_company'] = $_POST['entry_platoons_per_company'];
+		if (is_numeric($_POST['platoons_per_company'])) {
+			$troop_count['platoons_per_company'] = $_POST['platoons_per_company'];
 		}
-		if (is_numeric($_POST['entry_min_stat'])) {
-			$stat_parameters['min_stat'] = $_POST['entry_min_stat'];
+		if (is_numeric($_POST['min_stat'])) {
+			$stat_parameters['min_stat'] = $_POST['min_stat'];
 		}
-		if (is_numeric($_POST['entry_min_physical_stat'])) {
-			$stat_parameters['min_physical_stat'] = $_POST['entry_min_physical_stat'];
+		if (is_numeric($_POST['min_physical_stat'])) {
+			$stat_parameters['min_physical_stat'] = $_POST['min_physical_stat'];
 		}
-		if (is_numeric($_POST['entry_min_mental_stat'])) {
-			$stat_parameters['min_mental_stat'] = $_POST['entry_min_mental_stat'];
+		if (is_numeric($_POST['min_mental_stat'])) {
+			$stat_parameters['min_mental_stat'] = $_POST['min_mental_stat'];
 		}
-		if (is_numeric($_POST['entry_max_stat'])) {
-			$stat_parameters['max_stat'] = $_POST['entry_max_stat'];
+		if (is_numeric($_POST['max_stat'])) {
+			$stat_parameters['max_stat'] = $_POST['max_stat'];
 		}
 	}
 	
-	$troops_per_squad = $troop_count['troops_per_squad'];
-	$squads_per_platoon = $troop_count['squads_per_platoon'];
-	$platoons_per_company = $troop_count['platoons_per_company'];
-
-	$min_stat = $stat_parameters['min_stat'];
-	$min_physical_stat = $stat_parameters['min_physical_stat'];
-	$min_mental_stat = $stat_parameters['min_mental_stat'];
-	$max_stat = $stat_parameters['max_stat'];
-
-
 	print<<<_HTML_
 	<html>
 	<head>
@@ -280,23 +270,23 @@ function open_web_page($troop_count, $stat_parameters, $_POST) {
 	<tr><td align="top">
 	<h3>Individual Stat Parameters</h3>
 	<p>Minimum Stat (2-15)
-		<input type="number" min="2" max="15" name="entry_min_stat" value="$min_stat" size="5">
+		<input type="number" min="2" max="15" name="min_stat" value="$stat_parameters[min_stat]" size="5">
 	<p>Minimum Physical Stat (2-15)
-		<input type="number" min="2" max="15" name="entry_min_physical_stat" value="$min_physical_stat" size="5">
+		<input type="number" min="2" max="15" name="min_physical_stat" value="$stat_parameters['min_physical_stat']" size="5">
 	<p>Minimum Mental Stat (2-15)	
-		<input type="number" min="2" max="15"name="entry_min_mental_stat" value="$min_mental_stat" size="5">
+		<input type="number" min="2" max="15"name="min_mental_stat" value="$stat_parameters['min_mental_stat']" size="5">
 	<p>Maximum Stat (2-15)
-		<input type="number" min="2" max="15" name="entry_max_stat" value="$max_stat" size="5">
+		<input type="number" min="2" max="15" name="max_stat" value="$stat_parameters['max_stat']" size="5">
 	</td>
 	<td align="top">
 	<h3>TOE Parameters</h3>
 
 	<p>Troops per Squad (1-15)
-		<input type="number" min="1" max="15" name="entry_troops_per_squad" value="$troops_per_squad" size ="5">
+		<input type="number" min="1" max="15" name="troops_per_squad" value="$troop_count['troops_per_squad']" size ="5">
 	<p>Squads Per Platoon (1-8 )
-		<input type="number" min="1" max="8" name="entry_squads_per_platoon" value="$squads_per_platoon" size ="5">
+		<input type="number" min="1" max="8" name="squads_per_platoon" value="$troop_count['squads_per_platoon']" size ="5">
 	<p>Platoons per Company (1-8)
-		<input type="number" min="1" max="8" name="entry_platoons_per_company" value="$platoons_per_company" size ="5">
+		<input type="number" min="1" max="8" name="platoons_per_company" value="$troop_count['platoons_per_company']" size ="5">
 
 	<br>
 	<input type="hidden" name="_submit_check" value="1">
