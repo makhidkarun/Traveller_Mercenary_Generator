@@ -122,12 +122,31 @@ function get_first_name($first_names) {
 function generate_stats($stat_parameters) {
 	$UPP = "";
 	for ( $i = 0; $i < 3; $i++) {
-		$UPP = $UPP . strtoupper(dechex(rand($stat_parameters['min_physical_stat'], $stat_parameters['max_stat'])));
+		$stat_roll = rand(1,6) + rand(1,6);
+		if ($stat_roll < $stat_parameters['min_physical_stat'] ) {
+			$stat_roll = $stat_parameters['min_physical_stat'];
+		} else if ( $stat_roll > $stat_parameters['max_stat']) {
+			$stat_roll = $stat_parameters['max_stat'];
 		}
+		$UPP = $UPP . strtoupper(dechex($stat_roll));
+	}
 	for ( $i = 0; $i < 2; $i++ ) {
-		$UPP = $UPP . strtoupper(dechex(rand($stat_parameters['min_mental_stat'], $stat_parameters['max_stat'])));
+		$stat_roll = rand(1,6) + rand(1,6);
+		if ($stat_roll < $stat_parameters['min_mental_stat'] ) {
+			$stat_roll = $stat_parameters['min_mental_stat'];
+		} else if ( $stat_roll > $stat_parameters['max_stat']) {
+			$stat_roll = $stat_parameters['max_stat'];
 		}
-	$UPP = $UPP . strtoupper(dechex(rand($stat_parameters['min_stat'], $stat_parameters['max_stat'])));
+		$UPP = $UPP . strtoupper(dechex($stat_roll));
+	}
+	$stat_roll = rand(1,6) + rand(1,6);
+	if ($stat_roll < $stat_parameters['min_stat'] ) {
+		$stat_roll = $stat_parameters['min_stat'];
+	} else if ( $stat_roll > $stat_parameters['max_stat']) {
+		$stat_roll = $stat_parameters['max_stat'];
+	}
+	$UPP = $UPP . strtoupper(dechex($stat_roll));
+	
 	return $UPP;
 }
 
