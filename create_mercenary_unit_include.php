@@ -212,8 +212,8 @@ function generate_squad($troop_count, $stat_parameters, $last_names, $male_first
 		generate_person( 5, 6, 'nco', $stat_parameters, $last_names, $male_first_names, $female_first_names, $rank_structure, $base_skills, $all_skills) ;
 	}
 	
-	for ( $i = 1; $i <= $troop_count['troops_per_squad']; $i++) {
-		if ( $i == 1) {
+	for ( $i = 0; $i < $troop_count['troops_per_squad']; $i++) {
+		if ( $i == 0) {
 			echo "\n";
 			generate_person( 3, 4, 'nco', $stat_parameters, $last_names, $male_first_names, $female_first_names, $rank_structure, $base_skills, $all_skills) ;
 		} elseif (( $i % 4) == 0) {
