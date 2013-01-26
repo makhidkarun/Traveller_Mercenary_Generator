@@ -9,7 +9,8 @@ class Person {
 	public $gender = "Female";
 	public $skills = array();
 	public $roles = array();
-	
+
+	$lastname_db = new PDO("sqlite:/var/www/db/last_names.db");	
 	public function __construct() {
 		$this->age = 10 + rand(1,7);
 		$this->gender = $this->roll_gender(50);
@@ -18,6 +19,11 @@ class Person {
 
 	protected function roll_age($min, $max) {
 		return 17 + rand($min, $max);
+	}
+
+	protected function roll_ranked_age($min, $max) {
+		$age = 17 + rand($min, 1.5 * $max);
+		return intval($age);
 	}
 
 	protected function roll_gender($trigger) {
@@ -29,7 +35,7 @@ class Person {
 	}
 
 	protected function add_skill(&$skill_array, $skill) {
-	// Note the array pass by refernece, per ##php fluffypony
+	// Note the array pass by reference, per ##php fluffypony
 		if (array_key_exists($skill, $skill_array)) {
 			$skill_array[$skill] = $skill_array[$skill] + 1;
 		} else {
@@ -41,20 +47,18 @@ class Person {
 
 class Trooper extends Person {
 
-	private $rank_min = 1;
-	private $rank_max = 2;
+	protected $rank_min = 1;
+	protected $rank_max = 2;
 	protected $rank_class = 'rank_enlisted';
 	public $rank;
-	public function __construct($params) {
-		$this->roles[] = 'troop';
-		$this->age = $this->roll_age($this->rank_min, 3 + $this->rank_max);
-		$this->gender = $this->roll_gender($params['percent_male']);
-		$this->rank = $params[$this->rank_class][$this->get_rank($this->rank_min, $this->rank_max)];
-		foreach($this->roles as $role) {
-			  $this->add_skill($this->skills,  $params['base_skill'][$role]);
-		}
+	private $role = 'troop';
 
-		
+	public function __construct($params) {
+		parent::__construct($params);
+		$this->roles[] = $this->role;
+		$this->age = $this->roll_ranked_age($this->rank_min, $this->rank_max);
+		$this->rank = $params[$this->rank_class][$this->get_rank($this->rank_min, $this->rank_max)];
+		$this->add_skill($this->skills,  $params['base_skill'][$this->role]);
 		return true;
 	}
 	
@@ -65,61 +69,62 @@ class Trooper extends Person {
 }
 
 class Corporal extends Trooper {
-	private $rank_min = 3;
-	private $rank_max = 4;
 
+	protected $rank_min = 3;
+	protected $rank_max = 4;
 	public function __construct($params) {
-		$this->age = $this->roll_age($this->rank_min , 5 + $this->rank_max);
-		$this->gender = $this->roll_gender($params['percent_male']);
-		$this->rank = $params[$this->rank_class][$this->get_rank($this->rank_min, $this->rank_max)];
+		parent::__construct($params);
 	}
 }
 
 class NCO extends Corporal {
-	private $rank_min = 4;
-	private $rank_max = 6;
+	protected $rank_min = 4;
+	protected $rank_max = 6;
+	private $role = 'nco';
 
 	public function __construct($params) {
-		$this->age = $this->roll_age($this->rank_min , 7 + $this->rank_max);
-		$this->gender = $this->roll_gender($params['percent_male']);
+		parent::__construct($params);
+		$this->age = $this->roll_ranked_age($this->rank_min, $this->rank_max);
 		$this->rank = $params[$this->rank_class][$this->get_rank($this->rank_min, $this->rank_max)];
+		$this->roles[] = $this->role;
+		$this->add_skill($this->skills,  $params['base_skill'][$this->role]);
 	}
 }
-
+/*
 class SNCO extends NCO {
 	private $rank_min = 6;
 	private $rank_max = 9;
 
 	public function __construct($params) {
-		$this->age = $this->roll_age($this->rank_min , 10 + $this->rank_max);
+		$this->age = $this->roll_ranked_age($this->rank_min , $this->rank_max);
 		$this->gender = $this->roll_gender($params['percent_male']);
 		$this->rank = $params[$this->rank_class][$this->get_rank($this->rank_min, $this->rank_max)];
 	}
 }
-
+*/
 class Platoon_Officer extends Trooper {
-	private $rank_min = 1;
-	private $rank_max = 2;
+	public $rank_min = 1;
+	public $rank_max = 2;
 	protected $rank_class = 'rank_officer';
 
 	public function __construct($params) {
-		$this->age = $this->roll_age($this->rank_min , 4 + $this->rank_max);
+		$this->age = $this->roll_ranked_age($this->rank_min , $this->rank_max);
 		$this->gender = $this->roll_gender($params['percent_male']);
 		$this->rank = $params[$this->rank_class][$this->get_rank($this->rank_min, $this->rank_max)];
 	}
 }
 
-
+/*
 class Company_Officer extends Platoon_Officer {
 	private $rank_min = 3;
 	private $rank_max = 4;
 
 	public function __construct($params) {
-		$this->age = $this->roll_age($this->rank_min , 7 + $this->rank_max);
+		$this->age = $this->roll_ranked_age($this->rank_min , $this->rank_max);
 		$this->gender = $this->roll_gender($params['percent_male']);
 		$this->rank = $params[$this->rank_class][$this->get_rank($this->rank_min, $this->rank_max)];
 	}
 }
-
+*/
 
 ?>
