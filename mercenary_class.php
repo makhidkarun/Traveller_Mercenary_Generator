@@ -1,234 +1,98 @@
 <?php
 
-$person_params = array(
-		'min_stat' => 2,
-		'min_phy_stat' => 6,
-		'min_men_stat' => 5,
-		'max_stat' => 10,
-		'percent_male' => 50
-);
+require_once 'person_class.php';
+require_once 'trooper_params.php';
+
+class Trooper extends Person {
+
+	protected $rank_min = 1;
+	protected $rank_max = 2;
+	protected $rank_class = 'rank_enlisted';
+	public $rank;
+	public $role = 'troop';
+
+	public function __construct($trooper_params, $person_params) {
+		parent::__construct($person_params);
+		$this->UPP = $this->generate_stats($person_params);
+		$this->age = $this->roll_age($this->rank_min, $this->rank_max);
+		$this->rank = $trooper_params[$this->rank_class][$this->get_rank($this->rank_min, $this->rank_max)];
+		$this->add_skill($this->skills,  $trooper_params['base_skill'][$this->role]);
+		for ( $i = 0; $i <= $this->rank_max; $i++) {
+			$rand = rand($this->rank_min, $this->rank_max * 3);
+			if ( $this->rank_min > 4 ) {
+				$rand += 5;
+			}
+			if ( substr($this->upp, 4, 0)  > 7 ) {
+				$rand += 5;
+			}
+			if ($this->rank_class == 'rank_officer') {
+				$rand += 5;
+			}
+			if ( $rand > 30 ) {
+				$rand = rand(20, 30);
+			}
+			$this->add_skill($this->skills, $trooper_params['all_skills'][$rand]);
+		}
+		return true;
+	}
+	
+	protected function get_rank($rank_min, $rank_max) {
+		return rand($rank_min, $rank_max);
+	}
+	
+}
+
+class Corporal extends Trooper {
+
+	protected $rank_min = 3;
+	protected $rank_max = 4;
+	public function __construct($trooper_params, $person_params) {
+		parent::__construct($trooper_params, $person_params);
+	}
+}
 
 
-$trooper_params = array();
+class NCO extends Trooper {
+	protected $rank_min = 4;
+	protected $rank_max = 6;
+	public $role = 'nco';
 
-$trooper_params['rank_enlisted'] = array();
-$trooper_params['rank_enlisted']['1'] = 'PVT';
-$trooper_params['rank_enlisted']['2'] = 'PV2';
-$trooper_params['rank_enlisted']['3'] = 'PFC';
-$trooper_params['rank_enlisted']['4'] = 'CPL';
-$trooper_params['rank_enlisted']['5'] = 'SGT';
-$trooper_params['rank_enlisted']['6'] = 'SSG';
-$trooper_params['rank_enlisted']['7'] = 'SFC';
-$trooper_params['rank_enlisted']['8'] = 'MSG';
-$trooper_params['rank_enlisted']['9'] = 'SGM';
-$trooper_params['rank_officer']['1'] = '2LT';
-$trooper_params['rank_officer']['2'] = '1LT';
-$trooper_params['rank_officer']['3'] = 'CPT';
-$trooper_params['rank_officer']['4'] = 'MAJ';
-$trooper_params['rank_officer']['5'] = 'LTC';
-$trooper_params['rank_officer']['6'] = 'COL';
-$trooper_params['rank_officer']['7'] = 'BG';
-$trooper_params['rank_officer']['8'] = 'MG';
-$trooper_params['rank_officer']['9'] = 'LTG';
-$trooper_params['rank_officer']['10'] = 'GEN';
+	public function __construct($trooper_params, $person_params) {
+		parent::__construct($trooper_params, $person_params);
+		$this->add_skill($this->skills,  $trooper_params['base_skill']['troop']);
+	}
+}
 
-$trooper_params['base_skill']['troop'] = 'GunCbt';
-$trooper_params['base_skill']['medic'] = 'Medic';
-$trooper_params['base_skill']['nco'] = 'Leadership';
-$trooper_params['base_skill']['company_officer'] = 'Leadership';
-$trooper_params['base_skill']['driver'] = 'Drive';
-$trooper_params['base_skill']['clerk'] = 'Admin';
-$trooper_params['base_skill']['comm'] = 'Commo';
-$trooper_params['base_skill']['sensors'] = 'Sensors';
+class SNCO extends NCO {
+	protected $rank_min = 6;
+	protected $rank_max = 9;
 
+	public function __construct($trooper_params, $person_params) {
+		parent::__construct($trooper_params, $person_params);
+	}
+}
 
+class Platoon_Officer extends Trooper {
+	protected $rank_min = 1;
+	protected $rank_max = 2;
+	protected $rank_class = 'rank_officer';
+
+	public function __construct($trooper_params, $person_params) {
+		parent::__construct($trooper_params, $person_params);
+	}
+}
+
+class Company_Officer extends Platoon_Officer {
+	protected $rank_min = 3;
+	protected $rank_max = 4;
+	public $role = 'company_officer';
+
+	public function __construct($trooper_params, $person_params) {
+		parent::__construct($trooper_params, $person_params);
+	}
+}
 
 /*
-
-
-require_once 'male_first_names.php';
-require_once 'female_first_names.php';
-
-if (! isset($troop_counttroops_per_squad)) {
-	$troop_count = array (
-		'troops_per_squad' => 8,
-		'squads_per_platoon' => 3,
-		'platoons_per_company' => 4);
-}
-
-$hq_staff_roles = array (
-	0 => '1st Sgt',
-	1 => 'Fwd Obs',
-	2 => 'Comms ', 
-	3 => 'Sensors',
-	4 => 'Medic ',
-	5 => 'Driver',
-	6 => 'Driver',
-	7 => 'Clerk ');
-
-$unit_id = array(
-	1 => '1st',
-	2 => '2nd',
-	3 => '3rd',
-	4 => '4th',
-	5 => '5th',
-	6 => '6th',
-	7 => '7th',
-	8 => '8th'
-
-);
-
-$rank_structure = array (
-	1 => 'PVT',
-	2 => 'PV2',
-	3 => 'PFC',
-	4 => 'CPL',
-	5 => 'SGT',
-	6 => 'SSG',
-	7 => 'SFC',
-	8 => 'MSG',
-	9 => 'SGM',
-	10 => '2LT',
-	11 => '1LT',
-	12 => 'CPT',
-	13 => 'MAJ',
-	14 => 'LTC',
-	15 => 'COL',
-	16 => 'BG');
-
-$base_skills = array (
-	'troop' => 'GunCbt',
-	'medic' => 'Medic',
-	'nco' => 'Leadership',
-	'officer' => 'Leadership',
-	'driver' => 'Drive',
-	'clerk' => 'Admin',
-	'comm' => 'Commo',
-	'sensors' => 'Sensors');
-
-$all_skills = array (
-	1 => 'GunCbt',
-	2 => 'Drive',
-	3 => 'Athlete',
-	4 => 'Melee',
-	5 => 'HvyWpn',
-	6 => 'GunCbt',
-	7 => 'Melee',
-	8 => 'HvyWpn',
-	9 => 'Stealth',
-	10 => 'Medic',
-	11 => 'Recon',
-	12 => 'GunCbt',
-	13 => 'Mechanic',
-	14 => 'Drive',
-	15 => 'Gunnery',
-	16 => 'Recon',
-	17 => 'Sensors',
-	18 => 'Admin',
-	19 => 'Commo',
-	20 => 'Sensors',
-	21 => 'Navigation',
-	22 => 'Explosives',
-	23 => 'Survival',
-	24 => 'Engineer',
-	25 => 'Tactics',
-	26 => 'Leadership',
-	27 => 'Advocate',
-	28 => 'Diplomat',
-	29 => 'Tactics',
-	30 => 'Admin');
-
-function get_last_name($last_names) {
-	$i = rand(0, count($last_names));
-	return $last_names[$i];
-}
-
-function get_first_name($first_names) {
-	$i = rand(0, count($first_names));
-	return $first_names[$i];	
-}
-
-function generate_stats($stat_parameters) {
-	$UPP = "";
-	for ( $i = 0; $i < 3; $i++) {
-		$stat_roll = rand(1,6) + rand(1,6);
-		if ($stat_roll < $stat_parameters['min_physical_stat'] ) {
-			$stat_roll = $stat_parameters['min_physical_stat'];
-		} else if ( $stat_roll > $stat_parameters['max_stat']) {
-			$stat_roll = $stat_parameters['max_stat'];
-		}
-		$UPP = $UPP . strtoupper(dechex($stat_roll));
-	}
-	for ( $i = 0; $i < 2; $i++ ) {
-		$stat_roll = rand(1,6) + rand(1,6);
-		if ($stat_roll < $stat_parameters['min_mental_stat'] ) {
-			$stat_roll = $stat_parameters['min_mental_stat'];
-		} else if ( $stat_roll > $stat_parameters['max_stat']) {
-			$stat_roll = $stat_parameters['max_stat'];
-		}
-		$UPP = $UPP . strtoupper(dechex($stat_roll));
-	}
-	$stat_roll = rand(1,6) + rand(1,6);
-	if ($stat_roll < $stat_parameters['min_stat'] ) {
-		$stat_roll = $stat_parameters['min_stat'];
-	} else if ( $stat_roll > $stat_parameters['max_stat']) {
-		$stat_roll = $stat_parameters['max_stat'];
-	}
-	$UPP = $UPP . strtoupper(dechex($stat_roll));
-	
-	return $UPP;
-}
-
-function add_skill($skill_array, $skill) {
-	if (array_key_exists($skill, $skill_array)) {
-		$skill_array[$skill] = $skill_array[$skill] + 1;
-	} else {
-		$skill_array[$skill] = 1;
-	}
-	return $skill_array;
-}
-
-function generate_person( $rank_min, $rank_max, $role, $stat_parameters, $last_names, $male_first_names, $female_first_names, $rank_structure, $base_skills, $all_skills) {
-	$upp = generate_stats($stat_parameters);
-	$rank = $rank_structure[rand($rank_min, $rank_max)];
-	$age = 18 + rand(0,5) + $rank_min; 
-	if ( rand(1,6) <=5 ) {
-		$gender = 'Male';
-		$first_name = get_first_name($male_first_names);
-	} else {
-		$gender = 'Female';
-		$first_name = get_first_name($female_first_names);
-	}
-	
-	$last_name = get_last_name($last_names);
-	$skill_array = array();
-	$skill_count = rand(1,6) + $rank_max/2;
-	$max_skill_level = 12 + ($rank_max * 2);
-	if ( $rank_max > 8 ) {
-		$max_skill_level = count($all_skills);
-	} else {
-		$max_skill_level = 12 + ($rank_max * 2);
-	}	
-	$skill_array[$base_skills[$role]] = 1;	
-	if ($role != 'officer' && $role != 'troop' ) {
-		$skill_array = add_skill($skill_array, 'GunCbt') ;
-		$skill_array = add_skill($skill_array, 'Recon') ;
-	}
-	if ( $rank_min >= 4 ) {
-		$skill_array = add_skill($skill_array, 'Leadership') ;
-	}
-	for ( $i = 0; $i < $skill_count; $i++ ) {
-		$skill_array = add_skill($skill_array, $all_skills[rand(1, $max_skill_level)]);
-	}	
-	echo "\t";
-	echo "$rank $first_name $last_name, $upp $gender $age  ";
-	echo "\n\t";
-	foreach ($skill_array as $skill => $level) {
-		echo "$skill - $level ";
-	}
-	echo "\n";
-}
-	
 function generate_squad($troop_count, $stat_parameters, $last_names, $male_first_names, $female_first_names, $unit_id, $unit_number, $rank_structure, $base_skills, $all_skills) {
 	
 	$UNIT = $unit_id[$unit_number];
@@ -291,7 +155,7 @@ function generate_hq_staff($hq_staff_roles, $stat_parameters, $last_names, $male
 	generate_person( 1, 2, 'driver', $stat_parameters, $last_names, $male_first_names, $female_first_names, $rank_structure, $base_skills, $all_skills) ;
 	generate_person( 1, 2, 'driver', $stat_parameters, $last_names, $male_first_names, $female_first_names, $rank_structure, $base_skills, $all_skills) ;
 }
-
+/*
 function open_web_page($troop_count, $stat_parameters, $_POST) {
 
 	if (array_key_exists('_submit_check', $_POST)) {
@@ -367,10 +231,7 @@ _HTML_;
 		
 }
 
-function close_web_page() {
-	echo "</pre></body></html>";
-}
-
-
 */
+
 ?>
+

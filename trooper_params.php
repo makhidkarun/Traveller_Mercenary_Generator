@@ -64,123 +64,31 @@ $trooper_params['all_skills'][28] = 'Diplomat';
 $trooper_params['all_skills'][29] = 'Tactics';
 $trooper_params['all_skills'][30] = 'Admin';
 
+
+$trooper_params['troops_per_squad'] = 8;
+$trooper_params['squads_per_platoon'] = 3;
+$trooper_params['platoons_per_company'] = 4;
+
+
+$trooper_params['staff'][0] = '1SGT' ;
+$trooper_params['staff'][1] = 'Fwd Obs';
+$trooper_params['staff'][2] = 'Comms';
+$trooper_params['staff'][3] = 'Sensors';
+$trooper_params['staff'][4] = 'Medic';
+$trooper_params['staff'][5] = 'Driver';
+$trooper_params['staff'][6] = 'Driver';
+$trooper_params['staff'][7] = 'Clerk';
+
+$trooper_params['unit_id'][1] = '1st';
+$trooper_params['unit_id'][2] = '2nd';
+$trooper_params['unit_id'][3] = '3rd';
+$trooper_params['unit_id'][4] = '4th';
+$trooper_params['unit_id'][5] = '5th';
+$trooper_params['unit_id'][6] = '6th';
+$trooper_params['unit_id'][7] = '7th';
+$trooper_params['unit_id'][8] = '8th';
+
 /*
-
-
-
-if (! isset($troop_counttroops_per_squad)) {
-	$troop_count = array (
-		'troops_per_squad' => 8,
-		'squads_per_platoon' => 3,
-		'platoons_per_company' => 4);
-}
-
-$hq_staff_roles = array (
-	0 => '1st Sgt',
-	1 => 'Fwd Obs',
-	2 => 'Comms ', 
-	3 => 'Sensors',
-	4 => 'Medic ',
-	5 => 'Driver',
-	6 => 'Driver',
-	7 => 'Clerk ');
-
-$unit_id = array(
-	1 => '1st',
-	2 => '2nd',
-	3 => '3rd',
-	4 => '4th',
-	5 => '5th',
-	6 => '6th',
-	7 => '7th',
-	8 => '8th'
-
-);
-
-
-function get_last_name($last_names) {
-	$i = rand(0, count($last_names));
-	return $last_names[$i];
-}
-
-function get_first_name($first_names) {
-	$i = rand(0, count($first_names));
-	return $first_names[$i];	
-}
-
-
-
-function generate_stats($stat_parameters) {
-	$UPP = "";
-	for ( $i = 0; $i < 3; $i++) {
-		$stat_roll = rand(1,6) + rand(1,6);
-		if ($stat_roll < $stat_parameters['min_physical_stat'] ) {
-			$stat_roll = $stat_parameters['min_physical_stat'];
-		} else if ( $stat_roll > $stat_parameters['max_stat']) {
-			$stat_roll = $stat_parameters['max_stat'];
-		}
-		$UPP = $UPP . strtoupper(dechex($stat_roll));
-	}
-	for ( $i = 0; $i < 2; $i++ ) {
-		$stat_roll = rand(1,6) + rand(1,6);
-		if ($stat_roll < $stat_parameters['min_mental_stat'] ) {
-			$stat_roll = $stat_parameters['min_mental_stat'];
-		} else if ( $stat_roll > $stat_parameters['max_stat']) {
-			$stat_roll = $stat_parameters['max_stat'];
-		}
-		$UPP = $UPP . strtoupper(dechex($stat_roll));
-	}
-	$stat_roll = rand(1,6) + rand(1,6);
-	if ($stat_roll < $stat_parameters['min_stat'] ) {
-		$stat_roll = $stat_parameters['min_stat'];
-	} else if ( $stat_roll > $stat_parameters['max_stat']) {
-		$stat_roll = $stat_parameters['max_stat'];
-	}
-	$UPP = $UPP . strtoupper(dechex($stat_roll));
-	
-	return $UPP;
-}
-
-function generate_person( $rank_min, $rank_max, $role, $stat_parameters, $last_names, $male_first_names, $female_first_names, $rank_structure, $base_skills, $all_skills) {
-	$upp = generate_stats($stat_parameters);
-	$rank = $rank_structure[rand($rank_min, $rank_max)];
-	$age = 18 + rand(0,5) + $rank_min; 
-	if ( rand(1,6) <=5 ) {
-		$gender = 'Male';
-		$first_name = get_first_name($male_first_names);
-	} else {
-		$gender = 'Female';
-		$first_name = get_first_name($female_first_names);
-	}
-	
-	$last_name = get_last_name($last_names);
-	$skill_array = array();
-	$skill_count = rand(1,6) + $rank_max/2;
-	$max_skill_level = 12 + ($rank_max * 2);
-	if ( $rank_max > 8 ) {
-		$max_skill_level = count($all_skills);
-	} else {
-		$max_skill_level = 12 + ($rank_max * 2);
-	}	
-	$skill_array[$base_skills[$role]] = 1;	
-	if ($role != 'officer' && $role != 'troop' ) {
-		$skill_array = add_skill($skill_array, 'GunCbt') ;
-		$skill_array = add_skill($skill_array, 'Recon') ;
-	}
-	if ( $rank_min >= 4 ) {
-		$skill_array = add_skill($skill_array, 'Leadership') ;
-	}
-	for ( $i = 0; $i < $skill_count; $i++ ) {
-		$skill_array = add_skill($skill_array, $all_skills[rand(1, $max_skill_level)]);
-	}	
-	echo "\t";
-	echo "$rank $first_name $last_name, $upp $gender $age  ";
-	echo "\n\t";
-	foreach ($skill_array as $skill => $level) {
-		echo "$skill - $level ";
-	}
-	echo "\n";
-}
 	
 function generate_squad($troop_count, $stat_parameters, $last_names, $male_first_names, $female_first_names, $unit_id, $unit_number, $rank_structure, $base_skills, $all_skills) {
 	
