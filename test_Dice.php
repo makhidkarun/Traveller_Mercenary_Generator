@@ -1,5 +1,7 @@
 <?php
 
+// test_Dice.php
+
 require_once 'Dice.php';
 
 class test_Dice extends Dice {

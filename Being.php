@@ -5,8 +5,13 @@
 abstract class Being {
 
     protected $stats = array();
-
+    
     protected $name;
+    public $age;
+
+    protected function set_age($min, $max) {
+        $this->age = rand($min, $max);
+    }
 
 
 }
