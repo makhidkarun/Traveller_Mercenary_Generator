@@ -9,5 +9,9 @@ require_once 'Trooper.php';
 
 $new_guy = new Trooper();
 
-echo "The new guy is " . $new_guy->age . " years old.\n";
+$welcome = "The new guy, " . $new_guy->name . ", is a ";
+$welcome = $welcome . $new_guy->age . " year old " . $new_guy->gender . ".\n";
+
+echo $welcome;
+
 

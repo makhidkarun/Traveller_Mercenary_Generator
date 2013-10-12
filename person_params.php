@@ -7804,10 +7804,10 @@ $person_params['names']['humaniti']['count']['female'] = count($person_params['n
 $person_params['names']['humaniti']['count']['male'] = count($person_params['names']['humaniti']['male']);
 $person_params['names']['humaniti']['count']['last'] = count($person_params['names']['humaniti']['last']);
 
-$person_params['stats']['min_stat'] = 2;
-$person_params['stats']['min_phy_stat'] = 6;
-$person_params['stats']['min_men_stat'] = 5;
-$person_params['stats']['max_stat'] = 12;
-$person_params['stats']['percent_male'] = 50;
+// $person_params['stats']['min_stat'] = 2;
+// $person_params['stats']['min_phy_stat'] = 6;
+// $person_params['stats']['min_men_stat'] = 5;
+// $person_params['stats']['max_stat'] = 12;
+// $person_params['stats']['percent_male'] = 50;
 
 ?>
