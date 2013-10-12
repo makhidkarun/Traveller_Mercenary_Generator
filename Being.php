@@ -15,12 +15,12 @@ abstract class Being {
     public $age;
 
     protected function set_age($min, $max) {
-        return rand($min, $max);
+        return mt_rand($min, $max);
     }
 
     protected function set_gender($percent_male) {
         $gender = 'female';
-        $roll = rand(1,100);
+        $roll = mt_rand(1,100);
         if ( $roll <= $percent_male ) {
             $gender = 'male';
         }
@@ -31,10 +31,10 @@ abstract class Being {
     protected function set_name($race, $gender) {
         global $person_params;
 
-        $first_rand = rand(0, $person_params['names'][$race]['count'][$gender] - 1);
+        $first_rand = mt_rand(0, $person_params['names'][$race]['count'][$gender] - 1);
         $first_name = $person_params['names'][$race][$gender][$first_rand];
 
-        $last_rand = rand(0, $person_params['names'][$race]['count']['last'] - 1);
+        $last_rand = mt_rand(0, $person_params['names'][$race]['count']['last'] - 1);
         $last_name = $person_params['names'][$race]['last'][$last_rand];
    
         $name = $first_name . ' ' . $last_name;

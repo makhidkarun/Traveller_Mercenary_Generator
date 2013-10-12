@@ -44,11 +44,11 @@ $army_skills['NCO'][10] = 'Instruction';
 $army_skills['NCO'][11] = 'Admin';
 
 
-$rand_list = array_rand($army_skills['MOS']);
-$rand_roll = rand(1,6);
-$skill = $army_skills['MOS'][$rand_list][$rand_roll];
+// $rand_list = array_rand($army_skills['MOS']);
+// $rand_roll = rand(1,6);
+// $skill = $army_skills['MOS'][$rand_list][$rand_roll];
 
-echo "Rolled a $rand_roll, so I have $skill from the $rand_list branch.\n";
+//echo "Rolled a $rand_roll, so I have $skill from the $rand_list branch.\n";
 
 ?>
 
