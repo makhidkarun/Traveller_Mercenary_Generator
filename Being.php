@@ -42,23 +42,22 @@ abstract class Being {
         return $name;     
     }
     
-    protected function set_stats() {
-        global $stats;
-        foreach($stats as $stat => $roll) {
+    protected function set_stats(&$stats) {
+        foreach($stats as $stat => $value) {
             $die = new Dice();
             $stats[$stat] = $die->roll_dice(2,1,6);
         }
-    
+        return $stats; 
     }
 
     protected function set_upp($stats){
         $upp = '';
-        $upp = $upp . $stats['Str']; 
-        $upp = $upp . $stats['Dex']; 
-        $upp = $upp . $stats['End']; 
-        $upp = $upp . $stats['Int']; 
-        $upp = $upp . $stats['Edu']; 
-        $upp = $upp . $stats['Soc']; 
+        $upp = $upp . strtoupper(dechex($stats['Str'])); 
+        $upp = $upp . strtoupper(dechex($stats['Dex'])); 
+        $upp = $upp . strtoupper(dechex($stats['End'])); 
+        $upp = $upp . strtoupper(dechex($stats['Int'])); 
+        $upp = $upp . strtoupper(dechex($stats['Edu'])); 
+        $upp = $upp . strtoupper(dechex($stats['Soc'])); 
         return $upp;
     }
 
