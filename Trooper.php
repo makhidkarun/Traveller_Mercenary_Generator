@@ -37,7 +37,7 @@ class Trooper extends Being {
         $this->name =  $this->set_name('humaniti', $this->gender);
         $this->rank = $this->set_rank($rank_group, $rank_roll);
         $this->age = $this->set_age($min_age, $max_age) + $rank_roll;
-        $this->stats = $this->set_stats();
+        $this->stats = $this->set_stats($this->stats);
         $this->upp = $this->set_upp($this->stats);
     }
 
