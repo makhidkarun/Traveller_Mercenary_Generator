@@ -45,5 +45,4 @@ $mercenary_skills['NCO'][10] = 'Instruction';
 $mercenary_skills['NCO'][11] = 'Admin';
 
 
-?>
 
