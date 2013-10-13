@@ -3,9 +3,11 @@
 // NCOParams.php
 // From MANCHUCK on #phpmentoring
 
-require_once 'RoleAbstract.php';
+require_once 'MilitaryRoleAbstract.php';
 
-class NCOParams extends RoleAbstract {
+class NCOParams extends MilitaryRoleAbstract {
+
+    public $additional_skill_tables;
 
     public function __construct() {
 
@@ -14,6 +16,7 @@ class NCOParams extends RoleAbstract {
         $this->set_min_rank(3);
         $this->set_max_rank(9);
         $this->set_rank_group('enlisted');
+        $this->additional_skill_tables = array('NCO');
 
     }
    
