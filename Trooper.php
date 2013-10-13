@@ -35,8 +35,8 @@ class Trooper extends Being {
         $this->skill_tables = $this->add_skill_tables(&$this->skill_tables, 'ArmyLife');
         $mos_table = 'MOS_' . $this->mos;
         $this->skill_tables = $this->add_skill_tables(&$this->skill_tables, $mos_table);
-        if ( isset( $this->additional_skill_tables)) {
-            foreach ( $this->additional_skill_tables as $key => $value) {
+        if ( is_array($role->additional_skill_tables)  ) {
+            foreach ( $role->additional_skill_tables as $key => $value) {
                $this->skill_tables = $this->add_skill_tables(&$this->skill_tables, $value);
             }
         }
