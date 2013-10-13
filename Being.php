@@ -97,7 +97,9 @@ abstract class Being {
        return $this->skills;
     }
    
-    public function choose_skill ($skill_array, $skill_tables, $roll) {
+    public function choose_skill ($skill_array, $skill_tables) {
+        // There are a lot of modifiers to this stuff.
+        $roll = mt_rand(1,6);
         $rand_table = array_rand($skill_tables);
         $skill = $skill_array[$rand_table][$roll];
         return $skill;
