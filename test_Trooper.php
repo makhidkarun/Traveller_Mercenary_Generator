@@ -1,27 +1,62 @@
 <?php
 
 require_once 'Trooper.php';
-require_once 'TrooperParams.php';
+//require_once 'TrooperParams.php';
+//require_once 'NCOParams.php';
 
-//$new_guy = new Trooper($person_params);
-//$name = $new_guy->name;
-// echo "The new guy is called " . $name . " and is " . $new_guy->age  . " years old.\n";
-// echo "Nice UPP: " . $new_guy->upp . ".\n";
 $new_guy = new Trooper( new TrooperParams);
-/*
-$welcome = "The new guy, " . $new_guy->rank . ' '  . $new_guy->name . ", is a ";
-$welcome = $welcome . $new_guy->age . " year old " . $new_guy->gender . ".\n" ;
-$welcome = $welcome . 'Wow: ' . $new_guy->upp . ".\n";
-echo $welcome;
-*/ 
-/*
-$welcome = '';
+$desc = "The new ";
+$desc .= $new_guy->get_rank();
+$desc .= ", ";
+$desc .= $new_guy->get_name();
+$desc .= ", is a ";
+$desc .=  $new_guy->get_age(); 
+$desc .=  " year old "; 
+$desc .= $new_guy->get_gender();
+$desc .= " with a ";
+$desc .= $new_guy->get_upp();
+$desc .= " UPP";
+$desc .= ".\n";
 
-$new_nco = new Trooper('nco');
-$welcome = "The new guy, " . $new_nco->rank . ' '  . $new_nco->name . ", is a ";
-$welcome = $welcome . $new_nco->age . " year old " . $new_nco->gender . ".\n";
-$welcome = $welcome . 'Wow: ' . $new_nco->upp . ".\n";
+echo "$desc";
+foreach ($new_guy->get_skills() as $skill => $level) {
+    echo "$skill : $level\n";
+}
+echo "Skill tables: ";
 
-echo $welcome;
-*/
+foreach ($new_guy->get_skill_tables() as $table => $value ) {
+    echo "$table ";
+}
+echo "\n";
+$desc = '';
+
+$new_nco = new Trooper(new NCOParams);
+$desc = "The new ";
+$desc .= $new_nco->get_mos();
+$desc .= " ";
+$desc .= $new_nco->get_rank();
+$desc .= ", ";
+$desc .= $new_nco->get_name();
+$desc .= ", is a ";
+$desc .=  $new_nco->get_age(); 
+$desc .=  " year old "; 
+$desc .= $new_nco->get_gender();
+$desc .= " with a ";
+$desc .= $new_nco->get_upp();
+$desc .= " UPP";
+$desc .= ".\n";
+
+echo "$desc";
+foreach ($new_nco->get_skills() as $skill => $level) {
+    echo "$skill : $level\n";
+}
+
+echo "Skill tables: ";
+
+foreach ($new_nco->get_skill_tables() as $table => $value ) {
+    echo "$table ";
+}
+echo "\n";
+
+$desc = '';
 
