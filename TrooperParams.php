@@ -14,6 +14,7 @@ class TrooperParams extends MilitaryRoleAbstract {
         $this->set_min_rank(1);
         $this->set_max_rank(2);
         $this->set_rank_group('enlisted');
+        $this->additional_skill_tables = array();
 
     }
    
