@@ -21,7 +21,8 @@ class Trooper extends Being {
     private $min_age, $max_age, $min_rank, $max_rank, $rank_group, $rank_roll;
 
     public function __construct(MilitaryRoleAbstract $role) {
- 
+        global $mercenary_skills; 
+
         $this->gender = $this->set_gender(50);
         $this->name =  $this->set_name('humaniti', $this->gender);
         $this->stats = $this->set_stats($this->stats);
@@ -35,7 +36,7 @@ class Trooper extends Being {
         $this->skill_tables = $this->add_skill_tables(&$this->skill_tables, 'ArmyLife');
         $mos_table = 'MOS_' . $this->mos;
         $this->skill_tables = $this->add_skill_tables(&$this->skill_tables, $mos_table);
-        if ( is_array($role->additional_skill_tables)  ) {
+        if ( count($role->additional_skill_tables) > 0  ) {
             foreach ( $role->additional_skill_tables as $key => $value) {
                $this->skill_tables = $this->add_skill_tables(&$this->skill_tables, $value);
             }
@@ -43,6 +44,13 @@ class Trooper extends Being {
 
         // Start adding skills 
         $this->skills = $this->add_skill($this->skills, 'GunCbt');
+        $num_skills = $rank_roll / 2;
+        for ( $i = 0; $i <= $num_skills; $i++ ) {
+            $new_skill = $this->choose_skill($mercenary_skills, $this->skill_tables);
+            $this->skills = $this->add_skill($this->skills, $new_skill);
+        }
+
+        
  
     }
 
