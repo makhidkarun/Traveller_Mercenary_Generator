@@ -8,7 +8,7 @@ class Dice {
     public function roll_dice($num_dice, $die_min, $die_max) {
         $total = 0;
         for ( $i = 1; $i <= $num_dice; $i++) {
-            $total += rand($die_min , $die_max);
+            $total += mt_rand($die_min , $die_max);
         }
         return $total;
     }
@@ -16,7 +16,6 @@ class Dice {
     public function generate_upp() {
         $upp = '';
         for ( $i = 1; $i <= 6; $i++) {
-            // $stat_roll = rand(1,6) + rand(1,6);
             $stat_roll = $this->roll_dice(2,1,6);
             $stat = strtoupper(dechex($stat_roll));
             $upp = $upp . $stat;
