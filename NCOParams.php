@@ -1,64 +1,93 @@
 <?php
 
-// NCOParams.php
-// From MANCHUCK on #phpmentoring
+/**
+ * NCOParams.php
+ * 
+ * To be implemented in various ways.
+ *
+ * PHP Version 5
+ * 
+ * License: This is open source code of some license I don't yet know.
+ * 
+ * @category    Games
+ * @package     Makhidkarun
+ * @author      Leam Hall <leamhall@gmail.com>
+ * @copyright   2012-2013 Leam Hall
+ * @license     license 1 <http://LICENSEURL.example.com>
+ * @version     GIT: 0.2
+ * @link        github.com/makhidkarun/Traveller_Mercenary_Generator/blob/master/NCOParams.php
+ * @see         huh?
+ * @since       Original copyright date
+ * @assisting   MANCHUCK
+ * 
+*/
 
 require_once 'MilitaryRoleAbstract.php';
 
-class NCOParams extends MilitaryRoleAbstract {
+class NCOParams extends MilitaryRoleAbstract
+{
 
     public $additional_skill_tables;
 
-    public function __construct() {
+    public function __construct()
+    {
 
-        $this->set_min_age(20);
-        $this->set_max_age(30);
-        $this->set_min_rank(3);
-        $this->set_max_rank(9);
-        $this->set_rank_group('enlisted');
+        $this->setMinAge(20);
+        $this->setMaxAge(30);
+        $this->setMinRank(3);
+        $this->setMaxRank(9);
+        $this->setRankGroup('enlisted');
         $this->additional_skill_tables = array('NCO');
 
     }
    
-    protected function set_min_age($num) {
+    protected function setMinAge($num)
+    {
         $this->min_age = $num;
     }
     
-    public function get_min_age() {
+    public function getMinAge()
+    {
         return $this->min_age;
-    } 
+    }
 
-    protected function set_max_age($num) {
+    protected function setMaxAge($num)
+    {
         $this->max_age = $num;
     }
 
-    public function get_max_age() {
+    public function getMaxAge()
+    {
         return $this->max_age;
     }
 
-    protected function set_min_rank($num) {
+    protected function setMinRank($num)
+    {
         $this->min_rank = $num;
     }
 
-    public function get_min_rank() {
+    public function getMinRank()
+    {
         return $this->min_rank;
     }
 
-    protected function set_max_rank($num) {
+    protected function setMaxRank($num)
+    {
         $this->max_rank = $num;
     }
 
-    public function get_max_rank() {
+    public function getMaxRank()
+    {
         return $this->max_rank;
     }
 
-    protected function set_rank_group($group){
+    protected function setRankGroup($group)
+    {
         $this->rank_group = $group;
     }
 
-    public function get_rank_group() {
+    public function getRankGroup()
+    {
         return $this->rank_group;
     }
-
 }
-
