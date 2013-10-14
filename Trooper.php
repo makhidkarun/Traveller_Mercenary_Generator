@@ -47,11 +47,17 @@ class Trooper extends Being {
         $num_skills = $rank_roll / 2;
         for ( $i = 0; $i <= $num_skills; $i++ ) {
             $new_skill = $this->choose_skill($mercenary_skills, $this->skill_tables);
-            $this->skills = $this->add_skill($this->skills, $new_skill);
+            if ( $new_skill[0] == '+' ) {
+                $stat_to_increase = $new_skill[3] . $new_skill[4] . $new_skill[5];
+                $this->raise_stat(&$this->stats, $stat_to_increase, 1);
+            } else {
+                $this->skills = $this->add_skill($this->skills, $new_skill);
+            }
         }
 
         
- 
+        // Final UPP after stats potentially altered. 
+        $this->upp = $this->set_upp($this->stats);
     }
 
     protected function set_rank($rank_group, $rank_roll) {
