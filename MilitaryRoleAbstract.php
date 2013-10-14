@@ -10,7 +10,6 @@ abstract class MilitaryRoleAbstract {
     protected $min_rank;
     protected $max_rank;
     protected $rank_group;
-    // public $skill_tables = array( 'MOS' => 0, 'Life');
 
 }
 
