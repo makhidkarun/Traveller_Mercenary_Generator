@@ -83,7 +83,12 @@ abstract class Being {
     public function get_upp() {
         return $this->upp;
     }
-        
+       
+    public function raise_stat($stats, $stat_to_raise, $raise_by){
+        $stats[$stat_to_raise] += $raise_by;
+        return $stats;
+    }
+ 
     public function add_skill(&$skills, $skill) {    
         if (array_key_exists($skill, $skills)) {
             $skills[$skill] += 1;
