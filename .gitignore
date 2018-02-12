@@ -1,0 +1,5 @@
+# Ignore files that are products of program runs
+output/*
+
+# Old backup files
+sav/*
