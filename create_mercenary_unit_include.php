@@ -293,7 +293,7 @@ function generate_squad($troop_count, $stat_parameters, $last_names, $male_first
 	}
 }
 
-function generate_platoon($troop_count, $stat_parameters, $last_names, $male_first_names, $female_first_names, $unit_id, $unit_number, $rank_structure, $rank_structure, $base_skills, $all_skills) {
+function generate_platoon($troop_count, $stat_parameters, $last_names, $male_first_names, $female_first_names, $unit_id, $unit_number, $rank_structure, $base_skills, $all_skills) {
 
 	$UNIT = $unit_id[$unit_number];
 	echo "\n$UNIT Platoon: \n";
