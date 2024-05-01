@@ -309,14 +309,14 @@ function generate_platoon($troop_count, $stat_parameters, $last_names, $male_fir
 	}
 }
 
-function generate_company($troop_count, $stat_parameters, $last_names, $male_first_names, $female_first_names, $unit_id, $hq_staff_roles, $rank_structure, $rank_structure, $base_skills, $all_skills) {
+function generate_company($troop_count, $stat_parameters, $last_names, $male_first_names, $female_first_names, $unit_id, $hq_staff_roles, $rank_structure, $base_skills, $all_skills) {
 	echo "Commander: \n";
 	generate_person( 12, 13, 'officer', $stat_parameters, $last_names, $male_first_names, $female_first_names, $rank_structure, $base_skills, $all_skills) ;
 	
 	generate_hq_staff($hq_staff_roles, $stat_parameters, $last_names, $male_first_names, $female_first_names, $rank_structure, $base_skills, $all_skills);
 
 	for ( $i = 1; $i <= $troop_count['platoons_per_company']; $i++ ) {
-		generate_platoon($troop_count, $stat_parameters, $last_names, $male_first_names, $female_first_names, $unit_id, $i, $rank_structure, $rank_structure, $base_skills, $all_skills);
+		generate_platoon($troop_count, $stat_parameters, $last_names, $male_first_names, $female_first_names, $unit_id, $i, $rank_structure, $base_skills, $all_skills);
 	}
 }
 
